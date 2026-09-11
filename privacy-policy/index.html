@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Arrow Escape</title>
+    <meta name="description" content="Privacy Policy for Arrow Escape by Zenlio Technologies.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-main: #ededed;
+            --text-muted: #888888;
+            --border-color: #333333;
+            --accent: #ffffff;
+            --accent-muted: #222222;
+            --link: #ffffff;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000000 70%);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Layout */
+        .layout {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                gap: 40px;
+            }
+        }
+
+        /* Sidebar Nav */
+        .sidebar {
+            position: sticky;
+            top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 24px;
+            }
+        }
+
+        .brand {
+            margin-bottom: 40px;
+        }
+
+        .brand-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-name svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .brand-company {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: color 0.2s;
+            display: block;
+        }
+
+        .nav-list a:hover {
+            color: var(--text-main);
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 640px;
+        }
+
+        .header {
+            margin-bottom: 60px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .meta {
+            display: flex;
+            gap: 16px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .meta span {
+            background: var(--accent-muted);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 48px;
+            scroll-margin-top: 80px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #a0a0a0;
+            margin-bottom: 16px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 24px;
+        }
+
+        li {
+            font-size: 15px;
+            color: #a0a0a0;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 4px;
+            height: 4px;
+            background-color: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: underline;
+            text-decoration-color: var(--border-color);
+            text-underline-offset: 4px;
+            transition: text-decoration-color 0.2s;
+        }
+
+        a:hover {
+            text-decoration-color: var(--text-main);
+        }
+
+        /* Notice Box */
+        .notice {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+
+        .notice p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Data table/grid for partners */
+        .partner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .partner-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .partner-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .partner-card p {
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        
+        .partner-card a {
+            font-size: 12px;
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 500px) {
+            .partner-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-name">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
+                    </svg>
+                    Arrow Escape
+                </div>
+                <div class="brand-company">Zenlio Technologies</div>
+            </div>
+            
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#data-collection">Data Collection</a></li>
+                    <li><a href="#analytics">Analytics</a></li>
+                    <li><a href="#advertising">Advertising</a></li>
+                    <li><a href="#permissions">Permissions</a></li>
+                    <li><a href="#children">Children's Privacy</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header class="header">
+                <h1 class="title">Privacy Policy</h1>
+                <div class="meta">
+                    <span>Effective Date: September 2026</span>
+                    <span>v1.0.0</span>
+                </div>
+            </header>
+
+            <section id="overview">
+                <h2>Overview</h2>
+                <p>This Privacy Policy explains how <strong>Zenlio Technologies</strong> ("we", "us", or "our") collects, uses, and protects information when you play <strong>Arrow Escape</strong>.</p>
+                <p>We respect your privacy. Arrow Escape is designed to function with minimal data collection. We do not sell your personal data. By downloading and playing Arrow Escape, you agree to the practices described in this document.</p>
+            </section>
+
+            <section id="data-collection">
+                <h2>Data Collection</h2>
+                <p>Arrow Escape itself <strong>does not collect or transmit any personally identifiable information (PII)</strong> to our servers.</p>
+                <ul>
+                    <li><strong>Game Progress:</strong> Levels, scores, and daily streaks are stored strictly on your local device.</li>
+                    <li><strong>Preferences:</strong> Haptic and audio settings are stored locally.</li>
+                </ul>
+                <div class="notice">
+                    <p>If you uninstall the game or clear its data, your progress will be permanently deleted unless backed up via native OS mechanisms (e.g., Google Play Games cloud save).</p>
+                </div>
+            </section>
+
+            <section id="analytics">
+                <h2>Analytics</h2>
+                <p>To improve game stability and understand player engagement, we utilize third-party telemetry services. These services collect anonymized data.</p>
+                <ul>
+                    <li><strong>Usage Data:</strong> In-game events, screen views, and session lengths.</li>
+                    <li><strong>Diagnostics:</strong> Crash logs, performance metrics, and device specifications (OS version, device model).</li>
+                </ul>
+                <div class="partner-grid">
+                    <div class="partner-card">
+                        <h3>Firebase Analytics</h3>
+                        <p>Aggregated gameplay statistics and user engagement tracking.</p>
+                        <a href="https://firebase.google.com/support/privacy" target="_blank">Privacy Policy</a>
+                    </div>
+                    <div class="partner-card">
+                        <h3>Firebase Crashlytics</h3>
+                        <p>Real-time crash reporting to identify and resolve bugs.</p>
+                        <a href="https://firebase.google.com/support/privacy" target="_blank">Privacy Policy</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="advertising">
+                <h2>Advertising & SDKs</h2>
+                <p>Arrow Escape is a free-to-play game supported by advertisements. We integrate verified third-party ad networks that may collect device identifiers (such as Android Advertising ID) and network information to serve relevant ads.</p>
+                <div class="partner-grid">
+                    <div class="partner-card">
+                        <h3>Google AdMob</h3>
+                        <p>Serves banner, interstitial, and rewarded advertisements.</p>
+                        <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a>
+                    </div>
+                    <div class="partner-card">
+                        <h3>Unity Ads</h3>
+                        <p>Additional ad network for game monetization.</p>
+                        <a href="https://unity.com/legal/privacy-policy" target="_blank">Privacy Policy</a>
+                    </div>
+                </div>
+                <p>You can manage or reset your Advertising ID, or opt out of personalized ads entirely, through your device's system settings (<strong>Settings &gt; Privacy &gt; Ads</strong>).</p>
+            </section>
+
+            <section id="permissions">
+                <h2>App Permissions</h2>
+                <p>Arrow Escape requests only the minimum permissions required to function:</p>
+                <ul>
+                    <li><strong>INTERNET:</strong> Necessary for fetching advertisements and submitting anonymous crash reports.</li>
+                    <li><strong>ACCESS_NETWORK_STATE:</strong> Used by ad SDKs to verify network connectivity before requesting ad payloads.</li>
+                </ul>
+                <p>We do not request access to your camera, microphone, precise location, contacts, or internal file storage.</p>
+            </section>
+
+            <section id="children">
+                <h2>Children's Privacy</h2>
+                <p>Arrow Escape is a general audience game and is not specifically directed at children under the age of 13. We do not knowingly collect personal information from children. Our advertising partners are configured to serve non-personalized, family-safe advertisements.</p>
+            </section>
+
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>If you have any questions regarding this Privacy Policy, your data, or if you need technical support, please contact us.</p>
+                <div class="notice">
+                    <p>Email: <a href="mailto:support@zenliotechnologies.com">support@zenliotechnologies.com</a></p>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div>&copy; 2026 Zenlio Technologies. All rights reserved.</div>
+                <div>Package: com.zenliotechnologies.arrowescape</div>
+            </footer>
+        </main>
+    </div>
+
+</body>
+</html>
