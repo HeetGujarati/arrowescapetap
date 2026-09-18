@@ -64,21 +64,25 @@ class ArrowPuzzleGame extends FlameGame {
 
     double activeCols = level.gridSize.toDouble();
     double activeRows = level.gridSize.toDouble();
+    int minR = 0;
+    int minC = 0;
 
     if (level.mask.isNotEmpty) {
-      int minR = 999, maxR = -1, minC = 999, maxC = -1;
+      int minRFound = 999, maxRFound = -1, minCFound = 999, maxCFound = -1;
       for (final cell in level.mask) {
         final parts = cell.split(',');
         final r = int.parse(parts[0]);
         final c = int.parse(parts[1]);
-        if (r < minR) minR = r;
-        if (r > maxR) maxR = r;
-        if (c < minC) minC = c;
-        if (c > maxC) maxC = c;
+        if (r < minRFound) minRFound = r;
+        if (r > maxRFound) maxRFound = r;
+        if (c < minCFound) minCFound = c;
+        if (c > maxCFound) maxCFound = c;
       }
-      if (minR <= maxR && minC <= maxC) {
-        activeRows = (maxR - minR + 1).toDouble();
-        activeCols = (maxC - minC + 1).toDouble();
+      if (minRFound <= maxRFound && minCFound <= maxCFound) {
+        activeRows = (maxRFound - minRFound + 1).toDouble();
+        activeCols = (maxCFound - minCFound + 1).toDouble();
+        minR = minRFound;
+        minC = minCFound;
       }
     }
 
@@ -92,8 +96,13 @@ class ArrowPuzzleGame extends FlameGame {
     final gridPixelWidth  = level.gridSize * cellSize;
     final gridPixelHeight = level.gridSize * cellSize;
 
-    final gridX = (screenSize.x - gridPixelWidth) / 2;
-    final gridY = (screenSize.y - gridPixelHeight) / 2;
+    final activePixelWidth  = activeCols * cellSize;
+    final activePixelHeight = activeRows * cellSize;
+
+    // Center the active mask bounds on screen, ensuring all active cells
+    // have positive coordinates within the Flutter GameWidget viewport.
+    final gridX = (screenSize.x - activePixelWidth) / 2 - (minC * cellSize);
+    final gridY = (screenSize.y - activePixelHeight) / 2 - (minR * cellSize);
 
     return (gridPixelWidth, gridX, gridY);
   }

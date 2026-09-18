@@ -59,6 +59,7 @@ enum MaskShape {
   tree,
   house,
   crown,
+  castle,
   saturn,
   // ── V2 Boss shapes — geometric/angular silhouettes ────────────────────────
   plus,

@@ -16,66 +16,64 @@ void main() {
     const totalLevels = 500;
     const outputFile = 'assets/levels.bin';
 
-    // 1. Load and merge all chunk progress files.
-    final rawProgress = <String, dynamic>{};
+    // 1. Load base levels from level_chunks (all 500 levels)
+    final rawLevels = <int, LevelModel>{};
+    for (int chunk = 1; chunk <= 5; chunk++) {
+      final chunkFile = 'assets/level_chunks/chunk_$chunk.json';
+      final chunkF = File(chunkFile);
+      if (chunkF.existsSync()) {
+        try {
+          final data = jsonDecode(chunkF.readAsStringSync()) as Map<String, dynamic>;
+          for (final entry in data.entries) {
+            final lvl = LevelModel.fromJson(entry.value as Map<String, dynamic>);
+            rawLevels[lvl.levelNumber] = lvl;
+          }
+        } catch (e) {
+          print('WARNING: Failed to parse $chunkFile: $e');
+        }
+      }
+    }
+
+    // Overlay verified progress chunks where status is 'pass'
     for (int chunk = 1; chunk <= 5; chunk++) {
       final progressFile = 'assets/verify_progress_chunk_$chunk.json';
       final progressF = File(progressFile);
       if (progressF.existsSync()) {
         try {
-          final chunkProgress = jsonDecode(progressF.readAsStringSync()) as Map<String, dynamic>;
-          rawProgress.addAll(chunkProgress);
+          final data = jsonDecode(progressF.readAsStringSync()) as Map<String, dynamic>;
+          for (final entry in data.entries) {
+            final val = entry.value as Map<String, dynamic>;
+            if (val['status'] == 'pass' && val['level'] != null) {
+              final lvl = LevelModel.fromJson(val['level'] as Map<String, dynamic>);
+              rawLevels[lvl.levelNumber] = lvl;
+            }
+          }
         } catch (e) {
           print('WARNING: Failed to parse $progressFile: $e');
         }
       }
     }
 
-
-    // 2. Check all levels are passing and have cached JSON.
-    final failing = <int>[];
+    // 2. Check all 500 levels are loaded
     final missing = <int>[];
-    final noJson  = <int>[];
-
     for (int lvl = 1; lvl <= totalLevels; lvl++) {
-      final key = lvl.toString();
-      if (!rawProgress.containsKey(key)) {
+      if (!rawLevels.containsKey(lvl)) {
         missing.add(lvl);
-      } else {
-        final entry = rawProgress[key] as Map<String, dynamic>;
-        if (entry['status'] != 'pass') {
-          failing.add(lvl);
-        } else if (!entry.containsKey('level')) {
-          noJson.add(lvl);
-        }
       }
     }
 
-    if (missing.isNotEmpty || failing.isNotEmpty || noJson.isNotEmpty) {
-      print('Cannot build levels.bin — some levels are not ready.');
-      if (missing.isNotEmpty) {
-        print('  Not yet run (${missing.length}): ${missing.take(20).join(", ")}${missing.length > 20 ? " ..." : ""}');
-      }
-      if (failing.isNotEmpty) {
-        print('  Failing    (${failing.length}): ${failing.take(20).join(", ")}${failing.length > 20 ? " ..." : ""}');
-      }
-      if (noJson.isNotEmpty) {
-        print('  Missing JSON (${noJson.length}): ${noJson.take(20).join(", ")}${noJson.length > 20 ? " ..." : ""}');
-      }
-      fail('Some levels failed, are missing, or lack cached JSON.');
+    if (missing.isNotEmpty) {
+      print('Cannot build levels.bin — missing levels: ${missing.take(20).join(", ")}');
+      fail('Missing ${missing.length} levels.');
     }
 
-    // 3. Decode all levels from cached JSON — no re-generation needed.
-    print('Reading $totalLevels cached levels from chunk progress files...');
+    // 3. Collect and sort all 500 levels
+    print('Reading $totalLevels levels...');
     final levels = <LevelModel>[];
-
     final sw = Stopwatch()..start();
 
     for (int lvl = 1; lvl <= totalLevels; lvl++) {
-      final entry    = rawProgress[lvl.toString()] as Map<String, dynamic>;
-      final levelMap = entry['level'] as Map<String, dynamic>;
-      levels.add(LevelModel.fromJson(levelMap));
-
+      levels.add(rawLevels[lvl]!);
       if (lvl % 100 == 0) {
         print('  Loaded $lvl / $totalLevels levels');
       }

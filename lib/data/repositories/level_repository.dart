@@ -172,8 +172,17 @@ class LevelRepository {
     if (!_generating.contains(levelNumber)) {
       unawaited(preGenerateAsync(levelNumber));
     }
+    int timeoutMs = 0;
     while (!_cache.containsKey(levelNumber)) {
+      if (!_generating.contains(levelNumber) || timeoutMs > 15000) {
+        // preGenerateAsync failed or timed out. Synchronous fallback.
+        final fallbackLevel = LevelGeneratorV2.generateLevel(levelNumber);
+        _cache[levelNumber] = fallbackLevel;
+        _saveToDisk(levelNumber, fallbackLevel);
+        break;
+      }
       await Future.delayed(const Duration(milliseconds: 16));
+      timeoutMs += 16;
     }
     return _cache[levelNumber]!;
   }

@@ -1804,10 +1804,10 @@ class LevelGeneratorV2 {
   }
 
   static void _log(String msg) {
-    try {
-      File('attempt_log_v2.txt').writeAsStringSync(msg,
-          mode: FileMode.append, flush: true);
-    } catch (_) {}
+    // try {
+    //   File('attempt_log_v2.txt').writeAsStringSync(msg,
+    //       mode: FileMode.append, flush: true);
+    // } catch (_) {}
   }
 }
 
