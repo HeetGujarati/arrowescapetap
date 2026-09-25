@@ -275,6 +275,130 @@
                 gap: 8px;
             }
         }
+
+        /* Inline code */
+        code {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #f1f1f1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* app-ads.txt Code Box */
+        .code-box {
+            background-color: #0b0f14;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .code-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-copy, .btn-open {
+            font-size: 12px;
+            font-family: var(--font-mono);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-copy {
+            background: #1e1e1e;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-copy:hover {
+            background: #2a2a2a;
+            color: #ffffff;
+            border-color: #555555;
+        }
+
+        .btn-open {
+            background: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
+            font-weight: 500;
+        }
+
+        .btn-open:hover {
+            background: #e0e0e0;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .code-box pre {
+            padding: 16px;
+            overflow-x: auto;
+            margin: 0;
+            background: #090d12;
+        }
+
+        .code-box pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 13px;
+            color: #00ffaa;
+            display: block;
+        }
+
+        .spec-table-container {
+            overflow-x: auto;
+            margin-top: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .spec-table th, .spec-table td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .spec-table th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .spec-table td {
+            color: #a0a0a0;
+        }
     </style>
 </head>
 <body>
@@ -297,6 +421,7 @@
                     <li><a href="#data-collection">Data Collection</a></li>
                     <li><a href="#analytics">Analytics</a></li>
                     <li><a href="#advertising">Advertising</a></li>
+                    <li><a href="#app-ads">app-ads.txt</a></li>
                     <li><a href="#permissions">Permissions</a></li>
                     <li><a href="#children">Children's Privacy</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -368,6 +493,61 @@
                     </div>
                 </div>
                 <p>You can manage or reset your Advertising ID, or opt out of personalized ads entirely, through your device's system settings (<strong>Settings &gt; Privacy &gt; Ads</strong>).</p>
+                <p>For inventory authentication and fraud prevention, refer to our official <a href="#app-ads">app-ads.txt declaration</a>.</p>
+            </section>
+
+            <section id="app-ads">
+                <h2>Authorized Digital Sellers (app-ads.txt)</h2>
+                <p>In accordance with the <strong>IAB Tech Lab</strong> initiative, Zenlio Technologies publishes an <code>app-ads.txt</code> specification for <strong>Arrow Escape</strong> (Package: <code>com.zenliotechnologies.arrowescape</code>). This Authorized Digital Sellers standard protects ad buyers against spoofed or counterfeit mobile ad inventory and verifies our official AdMob publisher account.</p>
+
+                <div class="code-box">
+                    <div class="code-header">
+                        <span>📄 app-ads.txt</span>
+                        <div class="code-actions">
+                            <button type="button" class="btn-copy" id="copy-btn" onclick="copyAppAds()">Copy Record</button>
+                            <a href="app-ads.txt" target="_blank" class="btn-open">View Raw File ↗</a>
+                        </div>
+                    </div>
+                    <pre><code id="app-ads-code">google.com, pub-3451224240753943, DIRECT, f08c47fec0942fa0</code></pre>
+                </div>
+
+                <div class="spec-table-container">
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Value</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Exchange Domain</strong></td>
+                                <td><code>google.com</code></td>
+                                <td>Authorized advertising exchange domain</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Publisher ID</strong></td>
+                                <td><code>pub-3451224240753943</code></td>
+                                <td>Zenlio Technologies official AdMob publisher account ID</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Account Type</strong></td>
+                                <td><code>DIRECT</code></td>
+                                <td>Direct seller relationship with Google AdMob</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Certification Authority ID</strong></td>
+                                <td><code>f08c47fec0942fa0</code></td>
+                                <td>Google AdMob Trustworthy Accountability Group (TAG) ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p style="margin-top: 16px; font-size: 13px; color: var(--text-muted);">
+                    Direct crawl URL: <a href="app-ads.txt" target="_blank">app-ads.txt</a>
+                </p>
             </section>
 
             <section id="permissions">
@@ -394,11 +574,28 @@
             </section>
 
             <footer class="footer">
-                <div>&copy; 2026 Zenlio Technologies. All rights reserved.</div>
+                <div>&copy; 2026 Zenlio Technologies. All rights reserved. • <a href="app-ads.txt" target="_blank">app-ads.txt</a></div>
                 <div>Package: com.zenliotechnologies.arrowescape</div>
             </footer>
         </main>
     </div>
 
+    <script>
+        function copyAppAds() {
+            const code = document.getElementById('app-ads-code').innerText.trim();
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const originalText = btn.innerText;
+                btn.innerText = 'Copied! ✓';
+                btn.style.color = '#00ffaa';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
