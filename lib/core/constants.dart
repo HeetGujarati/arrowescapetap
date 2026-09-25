@@ -42,7 +42,7 @@ class AppConstants {
   // static const String applovinRewardedAdId = 'YOUR_APPLOVIN_REWARDED_AD_UNIT_ID';
 
   // Ad Network Feature Toggles
-  static const bool enableAdMob = false;
+  static bool get enableAdMob => RemoteConfigService.instance.enableAdMob;
   static const bool enableUnityAds = false;
   static const bool enableAppLovin = false;
 

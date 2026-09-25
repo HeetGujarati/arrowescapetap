@@ -2,6 +2,8 @@
 *.class
 *.log
 *.txt
+!app-ads.txt
+!**/app-ads.txt
 *.pyc
 *.swp
 .DS_Store

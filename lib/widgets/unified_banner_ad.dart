@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:unity_ads_plugin/unity_ads_plugin.dart';
@@ -21,6 +22,7 @@ class _UnifiedBannerAdState extends State<UnifiedBannerAd> {
   BannerAd? _admobBanner;
   bool _admobLoaded = false;
   bool _admobFailed = false;
+  Timer? _retryTimer;
 
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _UnifiedBannerAdState extends State<UnifiedBannerAd> {
   }
 
   void _loadAdmobBanner() {
+    _admobBanner?.dispose();
     _admobBanner = BannerAd(
       adUnitId: widget.admobUnitId,
       size: AdSize.banner,
@@ -47,11 +50,20 @@ class _UnifiedBannerAdState extends State<UnifiedBannerAd> {
           }
         },
         onAdFailedToLoad: (ad, error) {
+          debugPrint('AdMob Banner failed to load: $error');
           ad.dispose();
+          _admobBanner = null;
           if (mounted) {
             setState(() {
               _admobLoaded = false;
               _admobFailed = true;
+            });
+            // Retry loading banner after 20 seconds
+            _retryTimer?.cancel();
+            _retryTimer = Timer(const Duration(seconds: 20), () {
+              if (mounted && !_admobLoaded && AppConstants.enableAdMob) {
+                _loadAdmobBanner();
+              }
             });
           }
         },
@@ -61,6 +73,7 @@ class _UnifiedBannerAdState extends State<UnifiedBannerAd> {
 
   @override
   void dispose() {
+    _retryTimer?.cancel();
     _admobBanner?.dispose();
     super.dispose();
   }
@@ -76,17 +89,10 @@ class _UnifiedBannerAdState extends State<UnifiedBannerAd> {
           child: AdWidget(ad: _admobBanner!),
         );
       } else if (!_admobFailed) {
-        // Loading state
+        // Loading state: clean reserved space so layout does not jump
         return const SizedBox(
           width: 320,
           height: 50,
-          child: Center(
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            ),
-          ),
         );
       }
     }
